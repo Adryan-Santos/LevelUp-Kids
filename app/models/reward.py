@@ -12,4 +12,4 @@ class Reward(Base):
 
     parent_id = Column(Integer, ForeignKey("parents.id"), nullable=False)
     parent = relationship("Parent", back_populates="rewards")
-    kid_rewards = relationship("KidReward", back_populates="reward")
+    kid_rewards = relationship("KidReward", back_populates="reward", cascade="all, delete-orphan")

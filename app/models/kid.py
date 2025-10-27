@@ -14,5 +14,5 @@ class Kid(Base):
 
     parent_id = Column(Integer, ForeignKey("parents.id"), nullable=False)
     parent = relationship("Parent", back_populates="kids")
-    kid_missions = relationship("KidMission", back_populates="kid")
-    kid_rewards = relationship("KidReward", back_populates="kid")
+    kid_missions = relationship("KidMission", back_populates="kid", cascade="all, delete-orphan")
+    kid_rewards  = relationship("KidReward",  back_populates="kid", cascade="all, delete-orphan")

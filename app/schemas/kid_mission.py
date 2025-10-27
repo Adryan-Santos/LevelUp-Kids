@@ -9,5 +9,5 @@ class KidMissionOut(BaseModel):
     id: int
     kid_id: int
     mission_id: int
-    completed: bool
+    completed: bool 
     model_config = ConfigDict(from_attributes=True)
