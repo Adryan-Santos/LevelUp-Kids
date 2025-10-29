@@ -1,16 +1,15 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
-class KidCreate(BaseModel):
-    name: str
-    age: int
+class KidBase(BaseModel):
+    nome: str
+    idade: int
+
+class KidCreate(KidBase):
     parent_id: int
 
-class KidOut(BaseModel):
+class KidOut(KidBase):
     id: int
-    name: str
-    age: int
-    level: int
     xp: int
     gold: int
-    parent_id: int
-    model_config = ConfigDict(from_attributes=True)
+    class Config:
+        orm_mode = True

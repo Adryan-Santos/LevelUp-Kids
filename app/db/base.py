@@ -1,3 +1,6 @@
 from sqlalchemy.orm import declarative_base
-# a classe Base do SQLAlchemy, da qual todos os modelos ORM (Object-Relational Mapping)
+
 Base = declarative_base()
+
+# 👇 Importa todos os modelos (para registrar no metadata)
+from app.models import parent, kid, mission, reward, kid_mission, kid_reward  # noqa

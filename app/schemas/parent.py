@@ -1,12 +1,17 @@
-from pydantic import BaseModel, ConfigDict, EmailStr
+from pydantic import BaseModel, EmailStr
 
-class ParentCreate(BaseModel):
+class ParentBase(BaseModel):
     name: str
+    email: EmailStr
+
+class ParentCreate(ParentBase):
+    senha: str
+
+class ParentLogin(BaseModel):
     email: EmailStr
     senha: str
 
-class ParentOut(BaseModel):
+class ParentOut(ParentBase):
     id: int
-    name: str
-    email: EmailStr
-    model_config = ConfigDict(from_attributes=True)
+    class Config:
+        orm_mode = True

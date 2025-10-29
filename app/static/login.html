@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LevelUp Kids - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="overlay">
+    <img src="/static/img/logo.png" alt="Logo LevelUp Kids" class="logo">
+    <h1>Continuar Jornada</h1>
+
+    <form id="loginForm">
+      <input type="email" id="email" name="email" placeholder="E-mail" required>
+      <input type="password" id="senha" name="senha" placeholder="Senha" autocomplete="off" required>
+        <p style="margin-top: 15px;">
+            <a href="/forgot-password" style="color:#5dadec; text-decoration:none;">Esqueci minha senha</a>
+        </p>
+      <button type="submit" class="btn">Entrar</button>
+    </form>
+
+    <button onclick="window.location.href='/'" class="btn small">Voltar</button>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+
+      try {
+        const response = await fetch("http://127.0.0.1:8000/v1/parent/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, senha })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          // ✅ salva o id do responsável no localStorage
+          localStorage.setItem("parent_id", data.id);
+          localStorage.setItem("parent_name", data.name);
+          alert("Bem-vindo(a), " + data.name + "! 🧙‍♂️");
+          // ✅ redireciona para o dashboard
+          window.location.href = "/dashboard";
+        } else {
+          const error = await response.json();
+          alert("Erro ao entrar: " + (error.detail || "Verifique suas credenciais."));
+        }
+      } catch (err) {
+        alert("Falha na comunicação com o servidor.");
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

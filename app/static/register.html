@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LevelUp Kids - Cadastrar Responsável</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="overlay">
+        <img src="/static/img/logo.png" alt="Logo LevelUp Kids" class="logo">
+        <h1>Cadastro de Responsável</h1>
+        <form id="registerForm">
+            <input type="text" id="name" name="name" placeholder="Nome completo" required>
+            <input type="email" id="email" name="email" placeholder="E-mail" required>
+            <input type="password" id="password" name="password" placeholder="Senha" required>
+            <button type="submit" class="btn">Cadastrar</button>
+        </form>
+
+        <button onclick="window.location.href='/'" class="btn small">Voltar</button>
+    </div>
+
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const senha = document.getElementById("password").value;
+
+            try {
+                const response = await fetch("http://127.0.0.1:8000/v1/parent/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name, email, senha })
+                });
+
+                if (response.ok) {
+                    alert("Cadastro realizado com sucesso! Faça o login para continuar.");
+                    window.location.href = "/login";
+                } else {
+                    const error = await response.json();
+                    alert("Erro ao cadastrar: " + (error.detail || "Verifique os campos."));
+                }
+            } catch (error) {
+                alert("Falha na comunicação com o servidor.");
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>
