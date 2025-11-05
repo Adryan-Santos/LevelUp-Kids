@@ -6,10 +6,9 @@ class Reward(Base):
     __tablename__ = "rewards"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(String, nullable=False)
-    descr = Column(String, nullable=True)
-    price_gold = Column(Integer, default=0)
-
+    title = Column(String, nullable=False)
+    gold = Column(Integer, default=50)
     parent_id = Column(Integer, ForeignKey("parents.id"), nullable=False)
+
     parent = relationship("Parent", back_populates="rewards")
     kid_rewards = relationship("KidReward", back_populates="reward", cascade="all, delete-orphan")

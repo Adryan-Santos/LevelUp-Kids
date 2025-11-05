@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perfil do Herói - LevelUp Kids</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="stylesheet" href="/static/css/hero.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <div class="overlay">
+    <img src="/static/assets/logo.png" alt="Logo" class="logo">
+    <h1 id="heroName">Herói: [Nome]</h1>
+    <div class="stats">
+      <p id="heroLevel">Nível: [Nível]</p>
+      <p id="heroXP">XP: [XP]</p>
+      <p id="heroGold">Gold: [Gold]</p>
+    </div>
+
+    <h2>Missões</h2>
+    <div id="missionList" class="list"></div>
+
+    <button onclick="window.location.href='/dashboard'" class="btn small">⟵ Voltar</button>
+  </div>
+
+  <script src="/static/js/hero.js"></script>
+</body>
+</html>
