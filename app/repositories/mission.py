@@ -5,7 +5,7 @@ from app.models.mission import Mission
 from app.models.parent import Parent
 from app.schemas.mission import MissionCreate
 
-#CREATE
+# CREATE
 def create_mission(db: Session, mission_data: MissionCreate) -> Mission:
     parent = db.get(Parent, mission_data.parent_id)
     if not parent:
@@ -17,19 +17,17 @@ def create_mission(db: Session, mission_data: MissionCreate) -> Mission:
     db.refresh(mission)
     return mission
 
-#READ
+# READ
 def get_all_missions(db: Session) -> list[Mission]:
     return db.query(Mission).order_by(Mission.id).all()
 
-#READ ID
 def get_mission_by_id(db: Session, mission_id: int) -> Mission | None:
     return db.get(Mission, mission_id)
 
-#READ parent_ID
 def get_missions_by_parent(db: Session, parent_id: int) -> list[Mission]:
     return db.query(Mission).filter(Mission.parent_id == parent_id).order_by(Mission.id).all()
 
-#UPDATE
+# UPDATE
 def update_mission(db: Session, mission_id: int, updated_data: dict) -> Mission | None:
     mission = get_mission_by_id(db, mission_id)
     if not mission:
@@ -38,11 +36,12 @@ def update_mission(db: Session, mission_id: int, updated_data: dict) -> Mission 
     for key, value in updated_data.items():
         if hasattr(mission, key):
             setattr(mission, key, value)
+
     db.commit()
     db.refresh(mission)
     return mission
 
-#DELETE
+# DELETE
 def delete_mission(db: Session, mission_id: int) -> bool:
     mission = get_mission_by_id(db, mission_id)
     if not mission:

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 from app.db.deps import get_db
-from app.schemas.kid import KidCreate, KidOut
+from app.schemas.kid import KidCreate, KidOut, KidUpdate
 from app.repositories import kid as kid_repo
 from app.models.parent import Parent
 
@@ -10,15 +10,12 @@ router = APIRouter(prefix="/v1/kid", tags=["kid"])
 # ✅ Criar novo herói (criança)
 @router.post("/", response_model=KidOut, status_code=status.HTTP_201_CREATED)
 def create_kid(payload: KidCreate, db: Session = Depends(get_db)):
-    # Verifica se o parent existe
     parent = db.query(Parent).filter(Parent.id == payload.parent_id).first()
     if not parent:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Responsável não encontrado. Faça login novamente."
         )
-
-    # Cria o herói
     return kid_repo.create_kid(db, payload)
 
 
@@ -40,6 +37,17 @@ def get_kid(kid_id: int, db: Session = Depends(get_db)):
     if not kid:
         raise HTTPException(status_code=404, detail="Herói não encontrado.")
     return kid
+
+
+# ✅ Atualizar informações do herói
+@router.put("/{kid_id}", response_model=KidOut)
+def update_kid_route(kid_id: int, payload: KidUpdate, db: Session = Depends(get_db)):
+    updated = kid_repo.update_kid(
+        db, kid_id, payload.model_dump(exclude_unset=True, exclude_none=True)
+    )
+    if not updated:
+        raise HTTPException(status_code=404, detail="Herói não encontrado.")
+    return updated
 
 
 # ✅ Excluir um herói

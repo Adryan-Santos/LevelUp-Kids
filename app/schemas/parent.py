@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 
 class ParentBase(BaseModel):
     name: str
@@ -13,5 +13,4 @@ class ParentLogin(BaseModel):
 
 class ParentOut(ParentBase):
     id: int
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

@@ -1,12 +1,6 @@
-body {
-  background-color: #1a1a2e;
-  color: #f8f8f2;
-  font-family: 'Press Start 2P', cursive;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-}
-
+/* ================================
+   DASHBOARD - LEVELUP KIDS
+   ================================ */
 .logo {
   width: 120px;
   margin: 30px auto;
@@ -18,6 +12,7 @@ h1 {
   font-size: 14px;
 }
 
+/* ====== GRID DE HERÓIS ====== */
 .grid {
   display: flex;
   flex-wrap: wrap;
@@ -43,18 +38,7 @@ h1 {
   background-color: #16213e;
 }
 
-.btn {
-  background: #e94560;
-  border: 2px solid #fff;
-  padding: 10px;
-  color: #fff;
-  font-size: 10px;
-  text-decoration: none;
-  margin-top: 5px;
-  display: inline-block;
-  cursor: pointer;
-}
-
+/* ====== FORMULÁRIO DE NOVO HERÓI ====== */
 .form-container {
   display: none;
   background-color: #0f3460;
@@ -73,8 +57,9 @@ h1 {
   border: 2px solid #5dadec;
   background-color: #16213e;
   color: #fff;
-  font-size: 10px;
+  font-size: 12px;
   font-family: 'Press Start 2P', cursive;
+  border-radius: 6px;
 }
 
 .form-container h2 {
@@ -83,6 +68,28 @@ h1 {
   margin-bottom: 10px;
 }
 
+/* ====== RODAPÉ ====== */
 .footer {
   margin-top: 30px;
+}
+
+/* ====== RESPONSIVIDADE ====== */
+@media (max-width: 600px) {
+  .grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 80%;
+  }
+
+  .btn {
+    width: 90%;
+    font-size: 8px;
+  }
+
+  .form-container {
+    width: 85%;
+  }
 }

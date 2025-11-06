@@ -6,7 +6,7 @@ from app.models.kid import Kid
 from app.models.reward import Reward
 from app.schemas.kid_reward import KidRewardCreate
 
-#CREATE
+# CREATE
 def create_kid_reward(db: Session, data: KidRewardCreate) -> KidReward:
     kid = db.get(Kid, data.kid_id)
     reward = db.get(Reward, data.reward_id)
@@ -26,11 +26,11 @@ def create_kid_reward(db: Session, data: KidRewardCreate) -> KidReward:
         raise HTTPException(status_code=400, detail="Essa recompensa já foi registrada para este herói.")
 
     # Verifica se o Kid tem gold suficiente
-    if kid.gold < reward.price_gold:
+    if kid.gold < reward.gold:  # 👈 ajustado (era price_gold)
         raise HTTPException(status_code=400, detail="Gold insuficiente para comprar a recompensa.")
 
     # Desconta o gold e marca como comprada
-    kid.gold -= reward.price_gold
+    kid.gold -= reward.gold  # 👈 ajustado (era price_gold)
     kid_reward = KidReward(**data.model_dump())
     kid_reward.purchased = True
 
@@ -39,15 +39,15 @@ def create_kid_reward(db: Session, data: KidRewardCreate) -> KidReward:
     db.refresh(kid_reward)
     return kid_reward
 
-#READ
+# READ
 def get_all_kid_rewards(db: Session) -> list[KidReward]:
     return db.query(KidReward).order_by(KidReward.id).all()
 
-#READ kid_ID
+# READ kid_ID
 def get_kid_rewards_by_kid(db: Session, kid_id: int) -> list[KidReward]:
     return db.query(KidReward).filter(KidReward.kid_id == kid_id).order_by(KidReward.id).all()
 
-#DELETE
+# DELETE
 def delete_kid_reward(db: Session, kid_reward_id: int) -> bool:
     kid_reward = db.get(KidReward, kid_reward_id)
     if not kid_reward:

@@ -1,16 +1,15 @@
 from pydantic import BaseModel, ConfigDict
-from typing import Optional
 
+# Schema de criação (entrada)
 class RewardCreate(BaseModel):
-    name: str
-    descr: Optional[str] = None
-    price_gold: int
+    title: str
+    gold: int
     parent_id: int
 
+# Schema de saída (resposta)
 class RewardOut(BaseModel):
     id: int
-    name: str
-    descr: Optional[str] = None
-    price_gold: int
+    title: str
+    gold: int
     parent_id: int
     model_config = ConfigDict(from_attributes=True)

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciar - LevelUp Kids</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/manage.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="overlay">
+    <img src="/static/assets/logo.png" alt="Logo" class="logo">
+    <h1>Gerenciar Missões e Recompensas</h1>
+
+    <!-- Menu principal -->
+    <div class="menu">
+      <button class="btn" onclick="toggleSection('mission')">+ Nova Missão</button>
+      <button class="btn" onclick="toggleSection('reward')">+ Nova Recompensa</button>
+      <button class="btn" onclick="toggleSection('kids')">👶 Visualizar Heróis</button>
+    </div>
+
+    <!-- Seção de criação de Missão -->
+    <div id="missionSection" class="form-container">
+      <h2>Criar Nova Missão</h2>
+      <input id="missionTitle" placeholder="Título da Missão" />
+      <input id="missionDescr" placeholder="Descrição" />
+      <input id="missionXP" type="number" placeholder="XP que vale" />
+      <input id="missionGold" type="number" placeholder="Gold que vale" />
+      <button class="btn" onclick="createMission()">Salvar Missão</button>
+      <button class="btn small" onclick="toggleSection('mission')">Cancelar</button>
+    </div>
+
+    <!-- Seção de criação de Recompensa -->
+    <div id="rewardSection" class="form-container">
+      <h2>Criar Nova Recompensa</h2>
+      <input id="rewardTitle" placeholder="Nome da Recompensa" />
+      <input id="rewardDescr" placeholder="Descrição (opcional)" />
+      <input id="rewardGold" type="number" placeholder="Preço em Gold" />
+      <button class="btn" onclick="createReward()">Salvar Recompensa</button>
+      <button class="btn small" onclick="toggleSection('reward')">Cancelar</button>
+    </div>
+
+    <!-- Seção de Visualização de Heróis -->
+    <div id="kidsSection" class="form-container">
+      <h2>Heróis Cadastrados</h2>
+      <div id="kidsList"></div>
+      <button class="btn small" onclick="toggleSection('kids')">Fechar</button>
+    </div>
+
+    <!-- Seção de Edição de Herói -->
+    <div id="editKidSection" class="form-container" style="display:none;">
+      <h2>Editar Herói</h2>
+      <input type="hidden" id="editKidId">
+      <input id="editKidName" placeholder="Novo nome do herói">
+      <input id="editKidAge" type="number" placeholder="Nova idade">
+      <button class="btn" onclick="updateKid()">Salvar Alterações</button>
+      <button class="btn small" onclick="document.getElementById('editKidSection').style.display='none'">Cancelar</button>
+    </div>
+
+    <button onclick="window.location.href='/dashboard'" class="btn small">⟵ Voltar</button>
+  </div>
+
+  <script src="/static/js/manage.js"></script>
+</body>
+</html>

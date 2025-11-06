@@ -1,3 +1,6 @@
+/* ================================
+   HERO - PERFIL DO HERÓI
+   ================================ */
 body {
   font-family: 'Press Start 2P', cursive;
   background-color: #1a1a2e;
@@ -10,18 +13,23 @@ body {
   margin: 30px auto;
 }
 
+/* ====== STATUS ====== */
 .stats {
   background: #0f3460;
   border: 2px solid #5dadec;
   padding: 10px;
   margin-bottom: 20px;
   border-radius: 10px;
+  display: inline-block;
+  text-align: left;
 }
 
-h1, h2 {
-  margin-top: 20px;
+.stats p {
+  font-size: 10px;
+  margin: 5px 0;
 }
 
+/* ====== LISTAS DE MISSÕES ====== */
 .list {
   background-color: #0f3460;
   border: 2px solid #5dadec;
@@ -43,12 +51,19 @@ h1, h2 {
   border: none;
 }
 
-.approve-btn {
-  background-color: #5dadec;
-  color: black;
+/* ====== BOTÕES ====== */
+.approve-btn, .complete-btn {
   padding: 5px 10px;
   border: none;
   cursor: pointer;
+  font-size: 10px;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+.approve-btn {
+  background-color: #5dadec;
+  color: black;
 }
 
 .approve-btn:hover {
@@ -58,11 +73,26 @@ h1, h2 {
 .complete-btn {
   background-color: #e94560;
   color: white;
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
 }
 
 .complete-btn:hover {
   background-color: #f76c6c;
+}
+
+/* ====== RESPONSIVIDADE ====== */
+@media (max-width: 600px) {
+  .list {
+    width: 90%;
+  }
+
+  .stats {
+    width: 80%;
+    text-align: center;
+  }
+
+  .item {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
 }

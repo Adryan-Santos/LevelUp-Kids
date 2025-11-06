@@ -6,7 +6,7 @@ from app.models.kid import Kid
 from app.models.mission import Mission
 from app.schemas.kid_mission import KidMissionCreate
 
-#CREATE
+# CREATE
 def create_kid_mission(db: Session, data: KidMissionCreate) -> KidMission:
     kid = db.get(Kid, data.kid_id)
     mission = db.get(Mission, data.mission_id)
@@ -16,7 +16,7 @@ def create_kid_mission(db: Session, data: KidMissionCreate) -> KidMission:
     if not mission:
         raise HTTPException(status_code=404, detail="Missão não encontrada.")
 
-    # Verifica se já existe essa combinação (para não duplicar)
+    # Evita duplicação de missão para o mesmo herói
     existing = (
         db.query(KidMission)
         .filter(KidMission.kid_id == data.kid_id, KidMission.mission_id == data.mission_id)
@@ -28,28 +28,28 @@ def create_kid_mission(db: Session, data: KidMissionCreate) -> KidMission:
     kid_mission = KidMission(**data.model_dump())
     db.add(kid_mission)
 
-    # Se a missão foi concluída, atualiza XP e Gold do Kid
+    # Atualiza XP e Gold caso a missão já venha concluída
     if data.completed:
-        kid.xp += mission.xp_reward
-        kid.gold += mission.gold_reward
+        kid.xp += mission.xp
+        kid.gold += 10  # Valor fixo opcional (pode ser ajustado futuramente)
 
     db.commit()
     db.refresh(kid_mission)
     return kid_mission
 
-#READ
+# READ
 def get_all_kid_missions(db: Session) -> list[KidMission]:
     return db.query(KidMission).order_by(KidMission.id).all()
 
-#READ ID
+# READ por ID
 def get_kid_mission_by_id(db: Session, kid_mission_id: int) -> KidMission | None:
     return db.get(KidMission, kid_mission_id)
 
-#READ kid_ID
+# READ por Kid
 def get_kid_missions_by_kid(db: Session, kid_id: int) -> list[KidMission]:
     return db.query(KidMission).filter(KidMission.kid_id == kid_id).order_by(KidMission.id).all()
 
-#DELETE
+# DELETE
 def delete_kid_mission(db: Session, kid_mission_id: int) -> bool:
     kid_mission = get_kid_mission_by_id(db, kid_mission_id)
     if not kid_mission:
