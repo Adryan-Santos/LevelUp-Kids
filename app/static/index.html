@@ -1,23 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LevelUp Kids</title>
-  <link rel="stylesheet" href="/static/css/style.css">
-  <link href="https://fonts.cdnfonts.com/css/press-start-2p" rel="stylesheet">
-</head>
-<body>
-  <div class="overlay">
-    <img src="/static/assets/logo.png" alt="Logo" class="logo">
-    <h1>LEVEL UP KIDS</h1>
-    <p>Escolha sua jornada:</p>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LevelUp Kids - Início</title>
 
-    <div class="menu">
-      <a href="/login" class="btn">🎮 Continuar Jornada</a>
-      <a href="/register" class="btn">⭐ Cadastrar-se</a>
-      <a href="/about" class="btn">💾 Sobre o Dev</a>
-    </div>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme:{
+        extend:{
+          fontFamily:{ kids:["Fredoka One","cursive"]},
+          colors:{
+            sky:"#6EC6FF",
+            pink:"#FF8A80",
+            mint:"#AAF683",
+            lemon:"#FFEB3B",
+            lilac:"#B388FF",
+            bgkids:"#F7F9FC"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-bgkids font-kids text-gray-800">
+
+  <div class="text-center mt-10">
+    <img src="/static/assets/logo.png" class="w-40 mx-auto animate-bounce">
+    <h1 class="text-3xl text-sky mt-4">LevelUp Kids</h1>
+    <p class="text-lilac text-lg mt-2">Transformando tarefas em diversão!</p>
   </div>
+
+  <div class="flex flex-col items-center mt-10 space-y-4">
+    <button onclick="window.location.href='/login'"
+      class="bg-sky text-white px-8 py-3 rounded-full shadow hover:scale-105 transition">
+      Entrar
+    </button>
+
+    <button onclick="window.location.href='/register'"
+      class="bg-pink text-white px-8 py-3 rounded-full shadow hover:scale-105 transition">
+      Criar Conta
+    </button>
+
+    <button onclick="window.location.href='/about'"
+      class="bg-gray-300 text-black px-8 py-3 rounded-full shadow hover:scale-105 transition">
+      Sobre
+    </button>
+  </div>
+
 </body>
 </html>

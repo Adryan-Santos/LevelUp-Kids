@@ -1,25 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sobre o Dev | LevelUp Kids</title>
-  <link rel="stylesheet" href="/static/css/style.css">
-  <link href="https://fonts.cdnfonts.com/css/press-start-2p" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sobre - LevelUp Kids</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme:{
+        extend:{
+          fontFamily:{ kids:["Fredoka One","cursive"]},
+          colors:{
+            sky:"#6EC6FF",
+            pink:"#FF8A80",
+            mint:"#AAF683",
+            lemon:"#FFEB3B",
+            lilac:"#B388FF",
+            bgkids:"#F7F9FC"
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body>
-  <div class="overlay">
-    <img src="assets/dev.jpeg" alt="Foto do Dev" class="logo">
-    <h1>💾 Sobre o Dev</h1>
 
-    <p>Desenvolvido por <strong>Adryan Santos</strong></p>
-    <p>R.A: 007194</p>
-    <p>Curso: Sistemas de Informação</p>
-    <p>LIBERTAS - 4º Período</p>
+<body class="bg-bgkids font-kids text-gray-800">
 
-    <p class="quote">"Mussum Ipsum, cacilds vidis litro abertis. Mauris nec dolor in eros commodo tempor."</p>
-
-    <a href="/" class="btn small">⟵ Voltar</a>
+  <div class="text-center mt-8">
+    <img src="/static/assets/logo.png" class="w-32 mx-auto">
+    <h1 class="text-3xl text-sky mt-4">Sobre o LevelUp Kids</h1>
   </div>
+
+  <div class="max-w-xl mx-auto mt-6 bg-white border-2 border-sky p-6 rounded-2xl shadow text-center">
+    <p class="text-lg leading-relaxed">
+      O <span class="text-sky">LevelUp Kids</span> é um sistema educativo gamificado onde
+      pais podem criar missões e recompensas para incentivar crianças em atividades
+      escolares e domésticas.
+    </p>
+
+    <p class="mt-4 text-lilac">
+      Quanto mais tarefas completadas, mais XP e Gold os heróis ganham!
+    </p>
+  </div>
+
+  <div class="text-center mt-6">
+    <button onclick="window.location.href='/'"
+      class="bg-gray-300 px-6 py-2 rounded-xl shadow">
+      Voltar
+    </button>
+  </div>
+
 </body>
 </html>

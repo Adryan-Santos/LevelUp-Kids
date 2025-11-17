@@ -1,60 +1,86 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LevelUp Kids - Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/css/style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - LevelUp Kids</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme:{
+        extend:{
+          fontFamily:{ kids:["Fredoka One","cursive"]},
+          colors:{
+            sky:"#6EC6FF",
+            pink:"#FF8A80",
+            mint:"#AAF683",
+            lemon:"#FFEB3B",
+            lilac:"#B388FF",
+            bgkids:"#F7F9FC"
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body>
-  <div class="overlay">
-    <img src="/static/assets/logo.png" alt="Logo" class="logo">
-    <h1>Continuar Jornada</h1>
 
-    <form id="loginForm">
-      <input type="email" id="email" name="email" placeholder="E-mail" required>
-      <input type="password" id="senha" name="senha" placeholder="Senha" autocomplete="off" required>
-        <p style="margin-top: 15px;">
-            <a href="/forgot-password" style="color:#5dadec; text-decoration:none;">Esqueci minha senha</a>
-        </p>
-      <button type="submit" class="btn">Entrar</button>
-    </form>
+<body class="bg-bgkids font-kids">
 
-    <button onclick="window.location.href='/'" class="btn small">Voltar</button>
+  <div class="text-center mt-10">
+    <img src="/static/assets/logo.png" class="w-32 mx-auto">
+    <h1 class="text-3xl text-sky mt-4">Entrar</h1>
+  </div>
+
+  <div class="max-w-md mx-auto bg-white border-2 border-sky mt-6 rounded-2xl shadow p-6">
+    <input id="email" type="email" placeholder="E-mail"
+      class="w-full p-3 border-2 border-sky rounded-xl mb-3"/>
+
+    <input id="senha" type="password" placeholder="Senha"
+      class="w-full p-3 border-2 border-sky rounded-xl mb-3"/>
+
+    <button onclick="login()"
+      class="w-full bg-sky text-white py-3 rounded-xl shadow hover:scale-105 transition">
+      Entrar
+    </button>
+  </div>
+
+  <div class="text-center mt-4">
+    <button onclick="window.location.href='/register'"
+      class="text-sky underline">
+      Criar Conta
+    </button>
   </div>
 
   <script>
-    document.getElementById("loginForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
+    async function login() {
+      const email = document.getElementById("email").value.trim();
+      const senha = document.getElementById("senha").value.trim();
 
-      const email = document.getElementById("email").value;
-      const senha = document.getElementById("senha").value;
-
-      try {
-        const response = await fetch("http://127.0.0.1:8000/v1/parent/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, senha })
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          // salva o id do responsável no localStorage
-          localStorage.setItem("parent_id", data.id);
-          localStorage.setItem("parent_name", data.name);
-          alert("Bem-vindo(a), " + data.name + "!");
-          // redireciona para o dashboard
-          window.location.href = "/dashboard";
-        } else {
-          const error = await response.json();
-          alert("Erro ao entrar: " + (error.detail || "Verifique suas credenciais."));
-        }
-      } catch (err) {
-        alert("Falha na comunicação com o servidor.");
-        console.error(err);
+      if (!email || !senha) {
+        alert("Preencha e-mail e senha!");
+        return;
       }
-    });
+
+      const res = await fetch("/v1/parent/login", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({email, senha})
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.detail || "Erro ao entrar.");
+        return;
+      }
+
+      localStorage.setItem("parent_id", data.id);
+      window.location.href="/dashboard";
+    }
   </script>
+
 </body>
 </html>

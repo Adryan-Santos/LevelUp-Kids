@@ -1,41 +1,149 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard - LevelUp Kids</title>
+  <title>LevelUp Kids – Heróis</title>
 
-  <!-- Fonte retrô e CSS principal -->
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/static/css/style.css" />
-  <link rel="stylesheet" href="/static/css/dashboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { kids: ["Fredoka One", "cursive"] },
+          colors: {
+            sky: "#6EC6FF",
+            pink: "#FF8A80",
+            mint: "#AAF683",
+            lemon: "#FFEB3B",
+            lilac: "#B388FF",
+            bgkids: "#F7F9FC",
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+
+    /* CARD ESTILO NETFLIX */
+    .hero-card {
+      background: linear-gradient(135deg, #6EC6FF 0%, #B388FF 100%);
+      border-radius: 25px;
+      padding: 25px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.10);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .hero-card:hover {
+      transform: scale(1.06);
+      box-shadow: 0 18px 35px rgba(0,0,0,0.25);
+    }
+
+    /* AVATAR */
+    .hero-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin: 0 auto 12px auto;
+      border: 4px solid white;
+      object-fit: cover;
+      background-color: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .hero-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+      margin-top: 5px;
+    }
+
+    .hero-info {
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+      opacity: 0.95;
+    }
+
+  </style>
 </head>
 
-<body>
-  <img src="/static/assets/logo.png" alt="Logo" class="logo">
-  <h1>Selecione o Herói</h1>
+<body class="bg-bgkids text-gray-800 font-kids">
 
-  <!-- Área onde os heróis aparecerão -->
-  <div class="grid" id="grid"></div>
-
-  <!-- Botão para abrir o formulário -->
-  <button id="toggleFormBtn" class="btn" onclick="toggleForm()">+ Novo Herói</button>
-
-  <!-- Formulário para criar novo herói -->
-  <div class="form-container" id="formContainer">
-    <h2>Criar Novo Herói</h2>
-    <input type="text" id="name" placeholder="Nome do Herói" />
-    <input type="number" id="age" placeholder="Idade" />
-    <button class="btn" onclick="addKid()">Salvar Herói</button>
-    <button class="btn small" onclick="toggleForm()">Cancelar</button>
+  <!-- LOGO -->
+  <div class="text-center mt-6">
+    <img src="/static/assets/logo.png" class="w-32 mx-auto">
   </div>
 
-  <div class="footer">
-    <button onclick="window.location.href='/'" class="btn small">Voltar</button>
-    <button onclick="window.location.href='/manage'" class="btn small">Gerenciar Missões & Recompensas</button>
+  <!-- TÍTULO -->
+  <h1 class="text-center text-2xl mt-4 mb-6 text-sky drop-shadow">
+    Selecione o Herói
+  </h1>
+
+  <!-- GRID DE HERÓIS -->
+  <div id="grid"
+       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto p-4">
   </div>
 
-  <!-- Script externo -->
+  <!-- BOTÃO NOVO HERÓI -->
+  <div class="text-center mt-6">
+    <button id="toggleFormBtn"
+            onclick="toggleForm()"
+            class="px-6 py-3 bg-pink text-white font-bold rounded-full shadow-lg hover:bg-red-400 hover:scale-105 transition">
+      + Novo Herói
+    </button>
+  </div>
+
+  <!-- FORMULÁRIO DE NOVO HERÓI -->
+  <div id="formContainer"
+       class="hidden bg-white shadow-xl border-2 border-sky rounded-2xl max-w-md mx-auto mt-6 p-6">
+
+    <h2 class="text-center text-xl mb-4 text-sky">Criar Novo Herói</h2>
+
+    <input id="name"
+           type="text"
+           placeholder="Nome do Herói"
+           class="w-full p-3 border-2 border-sky rounded-xl mb-3"/>
+
+    <input id="age"
+           type="number"
+           placeholder="Idade"
+           class="w-full p-3 border-2 border-sky rounded-xl mb-4"/>
+
+    <div class="flex justify-between">
+      <button onclick="addKid()"
+              class="px-6 py-2 bg-mint text-gray-700 font-bold rounded-xl shadow hover:scale-105 transition">
+        Salvar
+      </button>
+
+      <button onclick="toggleForm()"
+              class="px-6 py-2 bg-red-300 text-gray-700 font-bold rounded-xl shadow hover:scale-105 transition">
+        Cancelar
+      </button>
+    </div>
+  </div>
+
+  <!-- RODAPÉ -->
+  <div class="text-center mt-10 space-y-4 pb-6">
+
+    <button onclick="window.location.href='/'"
+            class="px-6 py-3 bg-lilac text-white font-bold rounded-full shadow-lg hover:bg-purple-400 hover:scale-105 transition">
+      ⟵ Voltar
+    </button>
+
+    <button onclick="window.location.href='/manage'"
+            class="px-6 py-3 bg-sky text-white font-bold rounded-full shadow-lg hover:bg-sky-500 hover:scale-105 transition block mx-auto">
+      ⚙ Gerenciar Missões & Recompensas
+    </button>
+
+  </div>
+
   <script src="/static/js/dashboard.js"></script>
 </body>
 </html>

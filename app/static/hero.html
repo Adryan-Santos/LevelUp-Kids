@@ -1,35 +1,114 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Herói | LevelUp Kids</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-    <script src="/static/js/hero.js" defer></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Herói – LevelUp Kids</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme:{
+        extend:{
+          fontFamily:{ kids:["Fredoka One","cursive"]},
+          colors:{
+            sky:"#6EC6FF",
+            pink:"#FF8A80",
+            mint:"#AAF683",
+            lemon:"#FFEB3B",
+            lilac:"#B388FF",
+            bgkids:"#F7F9FC"
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .btn-hero {
+      width: 80%;
+      max-width: 320px;
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 20px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      transition: .2s;
+    }
+    .btn-hero:hover { transform: scale(1.05); }
+
+    .box {
+      margin: 20px auto;
+      background: white;
+      border: 2px solid #6EC6FF;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 420px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .close-btn {
+      margin-top: 10px;
+      background: #ccc;
+      padding: 6px;
+      font-size: 14px;
+      border-radius: 12px;
+      width: 100px;
+      text-align: center;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .mission-card, .reward-card {
+      background: #F7F9FC;
+      border: 2px solid #6EC6FF;
+      padding: 12px;
+      border-radius: 12px;
+    }
+  </style>
+
 </head>
-<body>
 
-    <img src="/static/assets/logo.png" class="logo">
+<body class="bg-bgkids font-kids text-gray-800 px-4">
 
-    <h1 id="kidName">Herói</h1>
-    <p id="kidStats">Carregando...</p>
+  <!-- LOGO -->
+  <div class="text-center mt-6">
+    <img src="/static/assets/logo.png" class="w-28 mx-auto">
+  </div>
 
-    <!-- Botões -->
-    <button class="btn" onclick="toggleSection('missions')">📜 Ver Missões</button>
-    <button class="btn" onclick="toggleSection('rewards')">🎁 Ver Recompensas</button>
+  <h1 id="kidName" class="text-center text-3xl text-sky mt-2 mb-1">Herói</h1>
+  <p id="kidStats" class="text-center text-lg text-gray-700">Carregando...</p>
 
-    <!-- Seção MISSÕES -->
-    <div id="missionsSection" style="display:none; margin-top:20px;">
-        <h2>Missões Disponíveis</h2>
-        <div id="missionsList">Carregando...</div>
-    </div>
+  <!-- BOTÕES -->
+  <div class="flex flex-col items-center mt-6 gap-3">
+    <button class="btn-hero bg-sky text-white" onclick="toggleSection('missions')">📜 Ver Missões</button>
+    <button class="btn-hero bg-pink text-white" onclick="toggleSection('rewards')">🎁 Ver Recompensas</button>
+  </div>
 
-    <!-- Seção RECOMPENSAS -->
-    <div id="rewardsSection" style="display:none; margin-top:20px;">
-        <h2>Recompensas Disponíveis</h2>
-        <div id="rewardsList">Carregando...</div>
-    </div>
+  <!-- MISSÕES -->
+  <div id="missionsSection" class="box hidden">
+    <h2 class="text-2xl text-sky text-center">Missões Disponíveis</h2>
+    <div id="missionsList" class="mt-4"></div>
+    <button onclick="toggleSection('missions')" class="close-btn">Fechar</button>
+  </div>
 
-    <button onclick="window.location.href='/dashboard'" class="btn small" style="margin-top:30px;">Voltar</button>
+  <!-- RECOMPENSAS -->
+  <div id="rewardsSection" class="box hidden">
+    <h2 class="text-2xl text-pink text-center">Recompensas Disponíveis</h2>
+    <div id="rewardsList" class="mt-4"></div>
+    <button onclick="toggleSection('rewards')" class="close-btn">Fechar</button>
+  </div>
 
+  <!-- BOTÃO VOLTAR -->
+  <div class="text-center mt-6">
+    <button onclick="window.location.href='/dashboard'"
+      class="bg-gray-400 text-black px-6 py-2 rounded-xl shadow">
+      Voltar
+    </button>
+  </div>
+
+  <script src="/static/js/hero.js"></script>
 </body>
 </html>
