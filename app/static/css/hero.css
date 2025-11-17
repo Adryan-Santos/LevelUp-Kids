@@ -1,98 +1,53 @@
-/* ================================
-   HERO - PERFIL DO HERÓI
-   ================================ */
 body {
-  font-family: 'Press Start 2P', cursive;
   background-color: #1a1a2e;
   color: #f8f8f2;
+  font-family: 'Press Start 2P', cursive;
   text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 .logo {
   width: 120px;
   margin: 30px auto;
+  display: block;
 }
 
-/* ====== STATUS ====== */
-.stats {
-  background: #0f3460;
-  border: 2px solid #5dadec;
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  display: inline-block;
-  text-align: left;
-}
-
-.stats p {
-  font-size: 10px;
-  margin: 5px 0;
-}
-
-/* ====== LISTAS DE MISSÕES ====== */
-.list {
+.status {
   background-color: #0f3460;
   border: 2px solid #5dadec;
   border-radius: 10px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 600px;
+  padding: 10px;
+  margin: 10px auto;
+  max-width: 300px;
+  text-align: left;
 }
 
-.item {
-  border-bottom: 1px solid #5dadec;
-  padding: 10px 0;
+.missions {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px;
 }
 
-.item:last-child {
-  border: none;
-}
-
-/* ====== BOTÕES ====== */
-.approve-btn, .complete-btn {
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
+.mission-card {
+  background-color: #0f3460;
+  border: 2px solid #5dadec;
+  width: 220px;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: left;
   font-size: 10px;
-  border-radius: 5px;
   transition: 0.2s;
 }
 
-.approve-btn {
-  background-color: #5dadec;
-  color: black;
+.mission-card:hover {
+  transform: scale(1.05);
+  background-color: #16213e;
 }
 
-.approve-btn:hover {
-  background-color: #00ff9d;
-}
-
-.complete-btn {
-  background-color: #e94560;
-  color: white;
-}
-
-.complete-btn:hover {
-  background-color: #f76c6c;
-}
-
-/* ====== RESPONSIVIDADE ====== */
-@media (max-width: 600px) {
-  .list {
-    width: 90%;
-  }
-
-  .stats {
-    width: 80%;
-    text-align: center;
-  }
-
-  .item {
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
+.divider {
+  border: 1px solid #5dadec;
+  margin: 20px 0;
 }

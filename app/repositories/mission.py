@@ -27,6 +27,9 @@ def get_mission_by_id(db: Session, mission_id: int) -> Mission | None:
 def get_missions_by_parent(db: Session, parent_id: int) -> list[Mission]:
     return db.query(Mission).filter(Mission.parent_id == parent_id).order_by(Mission.id).all()
 
+def get_missions_by_parent(db: Session, parent_id: int):
+    return db.query(Mission).filter(Mission.parent_id == parent_id).order_by(Mission.id).all()
+
 # UPDATE
 def update_mission(db: Session, mission_id: int, updated_data: dict) -> Mission | None:
     mission = get_mission_by_id(db, mission_id)

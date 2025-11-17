@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from app.db.deps import get_db
@@ -12,9 +12,11 @@ router = APIRouter(prefix="/v1/rewards", tags=["Recompensas"])
 def create_reward(payload: RewardCreate, db: Session = Depends(get_db)):
     return repo.create_reward(db, payload)
 
-# Listar todas as recompensas
+# Listar recompensas (todas ou filtradas por parent)
 @router.get("/", response_model=list[RewardOut])
-def list_rewards(db: Session = Depends(get_db)):
+def list_rewards(parent_id: int | None = Query(None), db: Session = Depends(get_db)):
+    if parent_id:
+        return repo.get_rewards_by_parent(db, parent_id)
     return repo.get_all_rewards(db)
 
 # Buscar recompensa por ID

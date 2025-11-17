@@ -40,11 +40,11 @@
 
         if (response.ok) {
           const data = await response.json();
-          // ✅ salva o id do responsável no localStorage
+          // salva o id do responsável no localStorage
           localStorage.setItem("parent_id", data.id);
           localStorage.setItem("parent_name", data.name);
-          alert("Bem-vindo(a), " + data.name + "! 🧙‍♂️");
-          // ✅ redireciona para o dashboard
+          alert("Bem-vindo(a), " + data.name + "!");
+          // redireciona para o dashboard
           window.location.href = "/dashboard";
         } else {
           const error = await response.json();

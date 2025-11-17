@@ -10,7 +10,7 @@ async function loadMissions() {
   div.innerHTML = data.map(m => `
     <div class="item">
       <span>${m.name} (+${m.xp_reward}XP / ${m.gold_reward}G)</span>
-      <button class="btn small" onclick="completeMission('${m.name}')">✅ Completar</button>
+      <button class="btn small" onclick="completeMission('${m.name}')">Completar</button>
     </div>
   `).join('');
 }

@@ -92,4 +92,41 @@ h1 {
   .form-container {
     width: 85%;
   }
+
+  /* Corrige avatar no centro */
+.avatar-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.avatar-wrapper img {
+  width: 70px;
+}
+
+/* Wrapper do botão para evitar que estoure o card */
+.btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+/* Botão SELECTOR — pequeno e 100% dentro do card */
+.btn-select {
+  background: #e94560;
+  border: 2px solid #ffffff;
+  padding: 6px 10px;
+  font-size: 10px;
+  font-family: 'Press Start 2P', cursive;
+  cursor: pointer;
+  border-radius: 6px;
+  width: 120px;       /* 🔥 AQUI fica menor */
+  text-align: center;
+}
+
+.btn-select:hover {
+  background: #ff6e88;
+}
+
 }

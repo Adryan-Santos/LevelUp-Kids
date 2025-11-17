@@ -1,81 +1,63 @@
-window.onload = async function () {
-  const kid_id = localStorage.getItem("kid_id");
-  if (!kid_id) {
-    alert("Erro: Herói não encontrado.");
-    window.location.href = "/dashboard";
-    return;
-  }
-
-  await loadHero(kid_id);
-  await loadMissions(kid_id);
-};
-
-// Carregar informações do herói
-async function loadHero(kid_id) {
-  try {
-    const res = await fetch(`/v1/kid/${kid_id}`);
-    if (!res.ok) throw new Error("Falha ao buscar herói");
-    const data = await res.json();
-
-    document.getElementById("heroName").textContent = `Herói: ${data.name}`;
-    document.getElementById("heroLevel").textContent = `Nível: ${data.level}`;
-    document.getElementById("heroXP").textContent = `XP: ${data.xp}`;
-    document.getElementById("heroGold").textContent = `Gold: ${data.gold}`;
-  } catch (error) {
-    console.error(error);
-    alert("Erro ao carregar informações do herói.");
-  }
+function toggleSection(section) {
+    const el = document.getElementById(section + "Section");
+    el.style.display = el.style.display === "block" ? "none" : "block";
 }
 
-// Carregar missões associadas ao herói
-async function loadMissions(kid_id) {
-  try {
-    const res = await fetch(`/v1/kid-missions`);
-    if (!res.ok) throw new Error("Erro ao buscar missões do herói.");
-    const missions = await res.json();
+async function loadKidPage() {
+    const kid_id = localStorage.getItem("kid_id");
+    const parent_id = localStorage.getItem("parent_id");
 
-    // Filtra apenas as missões do herói atual
-    const filtered = missions.filter((m) => m.kid_id === parseInt(kid_id));
-
-    const missionList = document.getElementById("missionList");
-    if (!filtered.length) {
-      missionList.innerHTML = "<p>Nenhuma missão registrada ainda.</p>";
-      return;
+    if (!kid_id || !parent_id) {
+        window.location.href = "/dashboard";
+        return;
     }
 
-    missionList.innerHTML = filtered
-      .map(
-        (m) => `
-      <div class="item">
-        <span>Missão #${m.mission_id}</span>
-        <button class="complete-btn" onclick="markMissionComplete(${m.id}, ${kid_id})">
-          ✔ Concluída
-        </button>
-      </div>`
-      )
-      .join("");
-  } catch (error) {
-    console.error(error);
-    alert("Erro ao carregar missões.");
-  }
-}
+    /* ----- BUSCA DADOS DO KID ----- */
+    const kidRes = await fetch(`/v1/kid/${kid_id}`);
+    const kid = await kidRes.json();
 
-// Marcar missão como concluída
-async function markMissionComplete(kid_mission_id, kid_id) {
-  try {
-    const res = await fetch(`/v1/kid-missions/${kid_mission_id}`, {
-      method: "DELETE",
-    });
+    document.getElementById("kidName").textContent = kid.name;
+    document.getElementById("kidStats").textContent =
+        `Lvl ${kid.level} | XP: ${kid.xp} | Gold: ${kid.gold}`;
 
-    if (res.ok) {
-      alert("Missão marcada como concluída!");
-      loadHero(kid_id);
-      loadMissions(kid_id);
+    /* ----- MISSÕES ----- */
+    const missionsRes = await fetch(`/v1/missions/parent/${parent_id}`);
+    let missions = missionsRes.ok ? await missionsRes.json() : [];
+
+    const missionsBox = document.getElementById("missionsList");
+
+    if (!missions.length) {
+        missionsBox.innerHTML = "<p>Nenhuma missão disponível.</p>";
     } else {
-      alert("Erro ao atualizar missão.");
+        missionsBox.innerHTML = missions
+            .map(m => `
+                <div class="item">
+                    <strong>${m.title}</strong><br>
+                    ${m.description || ""}<br>
+                    XP: ${m.xp} | Gold: ${m.gold}
+                </div>
+            `)
+            .join("");
     }
-  } catch (error) {
-    console.error(error);
-    alert("Falha na comunicação com o servidor.");
-  }
+
+    /* ----- RECOMPENSAS ----- */
+    const rewardsRes = await fetch(`/v1/rewards?parent_id=${parent_id}`);
+    let rewards = rewardsRes.ok ? await rewardsRes.json() : [];
+
+    const rewardsBox = document.getElementById("rewardsList");
+
+    if (!rewards.length) {
+        rewardsBox.innerHTML = "<p>Nenhuma recompensa disponível.</p>";
+    } else {
+        rewardsBox.innerHTML = rewards
+            .map(r => `
+                <div class="item">
+                    <strong>${r.title}</strong><br>
+                    Custa ${r.gold} Gold
+                </div>
+            `)
+            .join("");
+    }
 }
+
+window.onload = loadKidPage;

@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Perfil do Herói - LevelUp Kids</title>
-  <link rel="stylesheet" href="/static/css/style.css" />
-  <link rel="stylesheet" href="/static/css/hero.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>Herói | LevelUp Kids</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/hero.js" defer></script>
 </head>
 <body>
-  <div class="overlay">
-    <img src="/static/assets/logo.png" alt="Logo" class="logo">
-    <h1 id="heroName">Herói: [Nome]</h1>
-    <div class="stats">
-      <p id="heroLevel">Nível: [Nível]</p>
-      <p id="heroXP">XP: [XP]</p>
-      <p id="heroGold">Gold: [Gold]</p>
+
+    <img src="/static/assets/logo.png" class="logo">
+
+    <h1 id="kidName">Herói</h1>
+    <p id="kidStats">Carregando...</p>
+
+    <!-- Botões -->
+    <button class="btn" onclick="toggleSection('missions')">📜 Ver Missões</button>
+    <button class="btn" onclick="toggleSection('rewards')">🎁 Ver Recompensas</button>
+
+    <!-- Seção MISSÕES -->
+    <div id="missionsSection" style="display:none; margin-top:20px;">
+        <h2>Missões Disponíveis</h2>
+        <div id="missionsList">Carregando...</div>
     </div>
 
-    <h2>Missões</h2>
-    <div id="missionList" class="list"></div>
+    <!-- Seção RECOMPENSAS -->
+    <div id="rewardsSection" style="display:none; margin-top:20px;">
+        <h2>Recompensas Disponíveis</h2>
+        <div id="rewardsList">Carregando...</div>
+    </div>
 
-    <button onclick="window.location.href='/dashboard'" class="btn small">⟵ Voltar</button>
-  </div>
+    <button onclick="window.location.href='/dashboard'" class="btn small" style="margin-top:30px;">Voltar</button>
 
-  <script src="/static/js/hero.js"></script>
 </body>
 </html>
