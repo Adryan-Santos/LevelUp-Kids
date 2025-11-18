@@ -7,7 +7,7 @@ from app.models.parent import Parent
 
 router = APIRouter(prefix="/v1/kid", tags=["kid"])
 
-# ✅ Criar novo herói (criança)
+#Criar novo herói (criança)
 @router.post("/", response_model=KidOut, status_code=status.HTTP_201_CREATED)
 def create_kid(payload: KidCreate, db: Session = Depends(get_db)):
     parent = db.query(Parent).filter(Parent.id == payload.parent_id).first()
@@ -19,7 +19,7 @@ def create_kid(payload: KidCreate, db: Session = Depends(get_db)):
     return kid_repo.create_kid(db, payload)
 
 
-# ✅ Buscar todos os heróis de um pai
+#Buscar todos os heróis de um pai
 @router.get("/", response_model=list[KidOut])
 def get_kids_by_parent(
     parent_id: int = Query(None, description="ID do responsável"),
@@ -30,7 +30,7 @@ def get_kids_by_parent(
     return kid_repo.get_all_kids(db)
 
 
-# ✅ Buscar um herói específico
+#Buscar um herói específico
 @router.get("/{kid_id}", response_model=KidOut)
 def get_kid(kid_id: int, db: Session = Depends(get_db)):
     kid = kid_repo.get_kid_by_id(db, kid_id)
@@ -39,7 +39,7 @@ def get_kid(kid_id: int, db: Session = Depends(get_db)):
     return kid
 
 
-# ✅ Atualizar informações do herói
+#Atualizar informações do herói
 @router.put("/{kid_id}", response_model=KidOut)
 def update_kid_route(kid_id: int, payload: KidUpdate, db: Session = Depends(get_db)):
     updated = kid_repo.update_kid(
@@ -50,7 +50,7 @@ def update_kid_route(kid_id: int, payload: KidUpdate, db: Session = Depends(get_
     return updated
 
 
-# ✅ Excluir um herói
+#Excluir um herói
 @router.delete("/{kid_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_kid(kid_id: int, db: Session = Depends(get_db)):
     success = kid_repo.delete_kid(db, kid_id)
