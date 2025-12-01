@@ -1,15 +1,15 @@
 console.log("dashboard.js carregado!");
 
-// Garante que o pai está logado
+// garante que o pai está logado
 function ensureLogged() {
   const parent_id = localStorage.getItem("parent_id");
   if (!parent_id) window.location.href = "/login";
   return parent_id;
 }
 
-// Carrega os heróis ao abrir a página
 document.addEventListener("DOMContentLoaded", loadKids);
 
+// carregar heróis
 async function loadKids() {
   const parent_id = ensureLogged();
   const grid = document.getElementById("grid");
@@ -18,62 +18,76 @@ async function loadKids() {
 
   try {
     const res = await fetch(`/v1/kid?parent_id=${parent_id}`);
-    if (!res.ok) throw new Error("Falha ao buscar heróis");
+    if (!res.ok) throw new Error();
 
     const kids = await res.json();
     grid.innerHTML = "";
 
     if (!kids.length) {
-      grid.innerHTML = "<p class='text-center text-gray-600'>Nenhum herói cadastrado ainda.</p>";
+      grid.innerHTML = "<p class='text-center text-gray-600'>Nenhum herói cadastrado.</p>";
       return;
     }
 
-    kids.forEach((kid) => {
+    kids.forEach(kid => {
+      const avatar = localStorage.getItem(`kid_avatar_${kid.id}`) || "/static/assets/default-avatar.png";
+
       const card = document.createElement("div");
       card.className = "hero-card";
 
       card.innerHTML = `
-        <img src="/static/assets/default-avatar.png" class="hero-avatar">
+        <img src="${avatar}" class="hero-avatar">
 
         <p class="hero-name">${kid.name}</p>
         <p class="hero-info">Lv. ${kid.level ?? 1}</p>
         <p class="hero-info">XP: ${kid.xp ?? 0}</p>
       `;
 
-      // Card inteiro é clicável
       card.onclick = () => selectKid(kid.id, kid.name);
 
       grid.appendChild(card);
     });
 
-  } catch (error) {
-    console.error(error);
+  } catch(err) {
     grid.innerHTML = "<p class='text-center text-red-500'>Erro ao carregar heróis.</p>";
   }
 }
 
-// "Selecionar" → salva ID da criança e vai para tela do herói
+// selecionar herói
 function selectKid(id, name) {
   localStorage.setItem("kid_id", id);
   localStorage.setItem("kid_name", name);
+
+  const avatar = localStorage.getItem(`kid_avatar_${id}`);
+  if (avatar) localStorage.setItem("kid_avatar", avatar);
+
   window.location.href = "/hero";
 }
 
-// Mostrar/ocultar formulário
+// abrir/fechar form
 function toggleForm() {
-  const form = document.getElementById("formContainer");
-  form.classList.toggle("hidden");
+  document.getElementById("formContainer").classList.toggle("hidden");
 }
 
-// Criar novo herói
+// selecionar avatar
+function selectAvatar(el) {
+  document.querySelectorAll(".avatar-option").forEach(img => {
+    img.classList.remove("avatar-selected");
+  });
+
+  el.classList.add("avatar-selected");
+  document.getElementById("selectedAvatar").value = el.src;
+}
+
+// criar herói
 async function addKid() {
   const parent_id = ensureLogged();
 
   const name = document.getElementById("name").value.trim();
   const age = parseInt(document.getElementById("age").value);
+  const avatar = document.getElementById("selectedAvatar").value;
 
-  if (!name || isNaN(age)) {
-    alert("Preencha todos os campos.");
+  if (!name || isNaN(age) || !avatar) {
+    alert("Preencha todos os campos e escolha um avatar.");
     return;
   }
 
@@ -88,11 +102,15 @@ async function addKid() {
 
     if (!res.ok) throw new Error();
 
+    const savedKid = await res.json();
+
+    localStorage.setItem(`kid_avatar_${savedKid.id}`, avatar);
+
     alert("Herói criado!");
     toggleForm();
     loadKids();
 
-  } catch (err) {
+  } catch(err) {
     alert("Erro ao criar herói.");
   }
 }

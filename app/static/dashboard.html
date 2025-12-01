@@ -15,12 +15,12 @@
         extend: {
           fontFamily: { kids: ["Fredoka One", "cursive"] },
           colors: {
-            sky: "#6EC6FF",
-            pink: "#FF8A80",
-            mint: "#AAF683",
-            lemon: "#FFEB3B",
-            lilac: "#B388FF",
-            bgkids: "#F7F9FC",
+            sky:"#0072B2",
+            pink:"#D55E00",
+            mint:"#009E73",
+            lemon:"#F0E442",
+            lilac:"#CC79A7",
+            bgkids:"#F4F5F7"
           },
         },
       },
@@ -28,7 +28,6 @@
   </script>
 
   <style>
-
     /* CARD ESTILO NETFLIX */
     .hero-card {
       background: linear-gradient(135deg, #6EC6FF 0%, #B388FF 100%);
@@ -45,7 +44,6 @@
       box-shadow: 0 18px 35px rgba(0,0,0,0.25);
     }
 
-    /* AVATAR */
     .hero-avatar {
       width: 90px;
       height: 90px;
@@ -57,20 +55,23 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
 
-    .hero-name {
-      font-size: 22px;
-      font-weight: bold;
-      color: white;
-      margin-top: 5px;
+    /* Estilo do grid de avatares */
+    .avatar-option {
+      border: 3px solid transparent;
+      border-radius: 50%;
+      padding: 3px;
+      cursor: pointer;
+      transition: transform .2s, border .2s;
     }
 
-    .hero-info {
-      color: white;
-      font-weight: bold;
-      font-size: 15px;
-      opacity: 0.95;
+    .avatar-option:hover {
+      transform: scale(1.1);
     }
 
+    .avatar-selected {
+      border-color: #6EC6FF;
+      transform: scale(1.15);
+    }
   </style>
 </head>
 
@@ -95,12 +96,12 @@
   <div class="text-center mt-6">
     <button id="toggleFormBtn"
             onclick="toggleForm()"
-            class="px-6 py-3 bg-pink text-white font-bold rounded-full shadow-lg hover:bg-red-400 hover:scale-105 transition">
+            class="px-6 py-3 bg-lilac text-white font-bold rounded-full shadow-lg hover:scale-105 transition">
       + Novo Herói
     </button>
   </div>
 
-  <!-- FORMULÁRIO DE NOVO HERÓI -->
+  <!-- FORMULÁRIO -->
   <div id="formContainer"
        class="hidden bg-white shadow-xl border-2 border-sky rounded-2xl max-w-md mx-auto mt-6 p-6">
 
@@ -116,15 +117,29 @@
            placeholder="Idade"
            class="w-full p-3 border-2 border-sky rounded-xl mb-4"/>
 
-    <div class="flex justify-between">
-      <button onclick="addKid()"
-              class="px-6 py-2 bg-mint text-gray-700 font-bold rounded-xl shadow hover:scale-105 transition">
-        Salvar
-      </button>
+    <!-- SELETOR DE AVATAR -->
+    <h3 class="text-sky font-bold mb-2">Escolha o Avatar:</h3>
 
+    <input type="hidden" id="selectedAvatar">
+
+    <div id="avatarGrid" class="grid grid-cols-3 mx-auto">
+      <img src="/static/assets/avatars/archer.png" class="avatar-option" onclick="selectAvatar(this)">
+      <img src="/static/assets/avatars/bard.png" class="avatar-option" onclick="selectAvatar(this)">
+      <img src="/static/assets/avatars/druid.png" class="avatar-option" onclick="selectAvatar(this)">
+      <img src="/static/assets/avatars/knight.png" class="avatar-option" onclick="selectAvatar(this)">
+      <img src="/static/assets/avatars/cleric.png" class="avatar-option" onclick="selectAvatar(this)">
+      <img src="/static/assets/avatars/wizard.png" class="avatar-option" onclick="selectAvatar(this)">
+    </div>
+
+    <div class="flex justify-between">
       <button onclick="toggleForm()"
               class="px-6 py-2 bg-red-300 text-gray-700 font-bold rounded-xl shadow hover:scale-105 transition">
         Cancelar
+      </button>
+
+      <button onclick="addKid()"
+              class="px-6 py-2 bg-mint text-gray-700 font-bold rounded-xl shadow hover:scale-105 transition">
+        Salvar
       </button>
     </div>
   </div>
@@ -133,7 +148,7 @@
   <div class="text-center mt-10 space-y-4 pb-6">
 
     <button onclick="window.location.href='/'"
-            class="px-6 py-3 bg-lilac text-white font-bold rounded-full shadow-lg hover:bg-purple-400 hover:scale-105 transition">
+            class="px-6 py-3 bg-pink text-white font-bold rounded-full shadow-lg hover:scale-105 transition">
       ⟵ Voltar
     </button>
 
