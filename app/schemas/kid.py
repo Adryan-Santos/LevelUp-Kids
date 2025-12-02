@@ -7,6 +7,7 @@ class KidBase(BaseModel):
     level: int | None = 1
     xp: int | None = 0
     gold: int | None = 0
+    avatar: str | None = None
 
 
 class KidCreate(KidBase):
@@ -18,7 +19,7 @@ class KidOut(KidBase):
     parent_id: int
 
     class Config:
-        from_attributes = True  # substitui orm_mode no Pydantic v2
+        from_attributes = True
 
 class KidUpdate(BaseModel):
     name: str | None = None
@@ -26,3 +27,4 @@ class KidUpdate(BaseModel):
     level: int | None = None
     xp: int | None = None
     gold: int | None = None
+    avatar: str | None = None

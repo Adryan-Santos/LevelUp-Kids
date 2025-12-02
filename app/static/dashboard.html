@@ -21,18 +21,18 @@
             lemon:"#F0E442",
             lilac:"#CC79A7",
             bgkids:"#F4F5F7"
-          },
-        },
-      },
+          }
+        }
+      }
     };
   </script>
 
   <style>
-    /* CARD ESTILO NETFLIX */
+    /* Mantenho o estilo original (estilo netflix) + seletores maiores para crianças */
     .hero-card {
       background: linear-gradient(135deg, #6EC6FF 0%, #B388FF 100%);
       border-radius: 25px;
-      padding: 25px;
+      padding: 20px;
       text-align: center;
       cursor: pointer;
       box-shadow: 0 12px 25px rgba(0,0,0,0.10);
@@ -40,37 +40,35 @@
     }
 
     .hero-card:hover {
-      transform: scale(1.06);
+      transform: scale(1.04);
       box-shadow: 0 18px 35px rgba(0,0,0,0.25);
     }
 
     .hero-avatar {
-      width: 90px;
-      height: 90px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
-      margin: 0 auto 12px auto;
-      border: 4px solid white;
+      margin: 0 auto 12px;
+      border: 5px solid white;
       object-fit: cover;
       background-color: white;
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
 
-    /* Estilo do grid de avatares */
     .avatar-option {
-      border: 3px solid transparent;
+      width: 100px; height: 100px;
       border-radius: 50%;
-      padding: 3px;
+      border: 4px solid transparent;
       cursor: pointer;
-      transition: transform .2s, border .2s;
+      padding: 4px;
+      transition: transform .15s, border .15s;
     }
 
-    .avatar-option:hover {
-      transform: scale(1.1);
-    }
-
+    .avatar-option:hover { transform: scale(1.06); }
     .avatar-selected {
-      border-color: #6EC6FF;
-      transform: scale(1.15);
+      border-color: #ffffff;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+      transform: scale(1.12);
     }
   </style>
 </head>
@@ -92,15 +90,13 @@
        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto p-4">
   </div>
 
-  <!-- BOTÃO NOVO HERÓI -->
-  <div class="text-center mt-6">
+  <!-- BOTÕES PRINCIPAIS -->
+  <div class="text-center mt-6 space-y-3">
     <button id="toggleFormBtn"
             onclick="toggleForm()"
             class="px-6 py-3 bg-lilac text-white font-bold rounded-full shadow-lg hover:scale-105 transition">
       + Novo Herói
     </button>
-  </div>
-
   <!-- FORMULÁRIO -->
   <div id="formContainer"
        class="hidden bg-white shadow-xl border-2 border-sky rounded-2xl max-w-md mx-auto mt-6 p-6">
@@ -122,7 +118,7 @@
 
     <input type="hidden" id="selectedAvatar">
 
-    <div id="avatarGrid" class="grid grid-cols-3 mx-auto">
+    <div id="avatarGrid" class="grid grid-cols-3 gap-4 mx-auto">
       <img src="/static/assets/avatars/archer.png" class="avatar-option" onclick="selectAvatar(this)">
       <img src="/static/assets/avatars/bard.png" class="avatar-option" onclick="selectAvatar(this)">
       <img src="/static/assets/avatars/druid.png" class="avatar-option" onclick="selectAvatar(this)">
@@ -131,7 +127,7 @@
       <img src="/static/assets/avatars/wizard.png" class="avatar-option" onclick="selectAvatar(this)">
     </div>
 
-    <div class="flex justify-between">
+    <div class="flex justify-between mt-6">
       <button onclick="toggleForm()"
               class="px-6 py-2 bg-red-300 text-gray-700 font-bold rounded-xl shadow hover:scale-105 transition">
         Cancelar
@@ -144,21 +140,8 @@
     </div>
   </div>
 
-  <!-- RODAPÉ -->
-  <div class="text-center mt-10 space-y-4 pb-6">
+<!-- RODAPÉ --> <div class="text-center mt-10 space-y-4 pb-6"> <button onclick="window.location.href='/'" class="px-6 py-3 bg-pink text-white font-bold rounded-full shadow-lg hover:scale-105 transition"> ⟵ Voltar </button> <button onclick="window.location.href='/manage'" class="px-6 py-3 bg-sky text-white font-bold rounded-full shadow-lg hover:bg-sky-500 hover:scale-105 transition block mx-auto"> ⚙ Gerenciar Missões & Recompensas </button> </div>
 
-    <button onclick="window.location.href='/'"
-            class="px-6 py-3 bg-pink text-white font-bold rounded-full shadow-lg hover:scale-105 transition">
-      ⟵ Voltar
-    </button>
-
-    <button onclick="window.location.href='/manage'"
-            class="px-6 py-3 bg-sky text-white font-bold rounded-full shadow-lg hover:bg-sky-500 hover:scale-105 transition block mx-auto">
-      ⚙ Gerenciar Missões & Recompensas
-    </button>
-
-  </div>
-
-  <script src="/static/js/dashboard.js"></script>
+  <script src="/static/js/dashboard.js?v=3"></script>
 </body>
 </html>

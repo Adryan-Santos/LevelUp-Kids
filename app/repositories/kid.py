@@ -11,7 +11,18 @@ def create_kid(db: Session, kid_data: KidCreate) -> Kid:
     if not parent:
         raise HTTPException(status_code=400, detail="Responsável não encontrado.")
 
-    kid = Kid(**kid_data.model_dump())
+    data = kid_data.model_dump()
+
+    kid = Kid(
+        name=data["name"],
+        age=data["age"],
+        level=data.get("level", 1),
+        xp=data.get("xp", 0),
+        gold=data.get("gold", 0),
+        parent_id=data["parent_id"],
+        avatar=data.get("avatar")   # <---- aqui o avatar é garantido
+    )
+
     db.add(kid)
     db.commit()
     db.refresh(kid)

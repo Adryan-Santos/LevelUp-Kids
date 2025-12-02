@@ -11,6 +11,7 @@ class Kid(Base):
     level = Column(Integer, default=1)
     xp = Column(Integer, default=0)
     gold = Column(Integer, default=0)
+    avatar = Column(String, nullable=True)
 
     parent_id = Column(Integer, ForeignKey("parents.id"), nullable=False)
     parent = relationship("Parent", back_populates="kids")

@@ -32,9 +32,19 @@ async function loadKidStats() {
 
   const kid = await res.json();
 
+  // Atualizando o nome e as informações do herói
   document.getElementById("kidName").textContent = kid.name;
   document.getElementById("kidStats").textContent =
     `Nível ${kid.level} | XP: ${kid.xp} | Gold: ${kid.gold}`;
+
+  // Atualizando o avatar do herói
+  const avatarEl = document.getElementById("kidAvatar");
+  if (avatarEl) {
+    // Verifica o caminho do avatar
+    const avatarPath = kid.avatar || "/static/assets/default-avatar.png";  // Caminho padrão
+    console.log("Avatar carregado:", avatarPath); // Para depuração, veja o caminho no console
+    avatarEl.src = avatarPath;  // Atualiza o src do avatar
+  }
 }
 
 /* ==========================================
@@ -232,5 +242,7 @@ async function loadKidPage() {
   await loadMissions();
   await loadRewards();
 }
+
+
 
 window.onload = loadKidPage;
